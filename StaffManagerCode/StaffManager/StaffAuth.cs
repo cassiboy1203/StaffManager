@@ -11,6 +11,8 @@ namespace Oxide.Plugins
 
         private const string staffPermission = "staffauth.staff";
 
+        private PluginConfig config;
+
         #region Plugin References
 
         [PluginReference] private Plugin StaffManagerCore;
@@ -23,6 +25,13 @@ namespace Oxide.Plugins
         #endregion
 
         #region Configuration
+
+        private class PluginConfig
+        {
+            public bool HideStaffName;
+            public bool HideStaffId;
+            public bool changeAuthLevel;
+        }
 
         #endregion
 
@@ -61,7 +70,40 @@ namespace Oxide.Plugins
                 return;
             }
 
-            //TODO: add authentication
+            Auth(player, args[0]);
+        }
+
+        #endregion
+
+        #region Api
+
+        private void Auth(BasePlayer player, string authKey)
+        {
+            //TODO: check auth
+
+            if (config.HideStaffId)
+            {
+                //TODO: get fake staff id
+                var fakeStaffId = "76561198163626210";
+                StaffCover.Call("FakeId", player, fakeStaffId);
+            }
+
+            if (config.HideStaffName)
+            {
+                //TODO: get fake staff name
+                var fakeStaffName = "staff";
+                StaffCover.Call("Rename", player, fakeStaffName);
+            }
+
+            if (config.changeAuthLevel)
+            {
+                
+            }
+        }
+
+        private void RemovePerms(BasePlayer player)
+        {
+
         }
 
         #endregion
