@@ -60,7 +60,7 @@ namespace Oxide.Plugins
 
         #region Commands
 
-        [Command("rename")]
+        [ChatCommand("rename")]
         private void CmdRename(BasePlayer player, string command, string[] args)
         {
             if (!player.IPlayer.HasPermission(RenamePermission))
@@ -78,7 +78,7 @@ namespace Oxide.Plugins
             Rename(player, args[0]);
         }
 
-        [Command("fakeid")]
+        [ChatCommand("fakeid")]
         private void CmdFakeId(BasePlayer player, string command, string[] args)
         {
             if (!player.IPlayer.HasPermission(FakeIdPermission))
@@ -96,7 +96,7 @@ namespace Oxide.Plugins
             FakeId(player, args[0]);
         }
 
-        [Command("resetname")]
+        [ChatCommand("resetname")]
         private void CmdResetName(BasePlayer player, string command, string[] args)
         {
             if (!player.IPlayer.HasPermission(RenamePermission) || !player.IPlayer.HasPermission(FakeIdPermission))
