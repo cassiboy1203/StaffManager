@@ -99,7 +99,7 @@ namespace Oxide.Plugins
         [ChatCommand("resetname")]
         private void CmdResetName(BasePlayer player, string command, string[] args)
         {
-            if (!player.IPlayer.HasPermission(RenamePermission) || !player.IPlayer.HasPermission(FakeIdPermission))
+            if (!player.IPlayer.HasPermission(RenamePermission) && !player.IPlayer.HasPermission(FakeIdPermission))
             {
                 player.IPlayer.Reply("No permission.");
                 return;
