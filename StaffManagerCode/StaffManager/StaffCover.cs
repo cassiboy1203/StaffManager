@@ -8,7 +8,7 @@ using Oxide.Core.Plugins;
 
 namespace Oxide.Plugins
 {
-    [Info("Staff Cover", "Cas", "0.0.1")]
+    [Info("Staff Cover", "Cas", "1.0.0")]
     [Description("Simple staff renamer")]
     class StaffCover : RustPlugin
     {
