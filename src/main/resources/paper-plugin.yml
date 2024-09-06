@@ -1,0 +1,4 @@
+name: StaffmanagerCore
+version: '1.0.0'
+main: io.github.cassiboy1203.staffmanagerCore.StaffmanagerCore
+api-version: '1.21'
