@@ -1,11 +1,9 @@
 package io.github.cassiboy1203.staffmanagercore.inventory;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
 
 public record StaffItem(int slot, Material material, int amount, String name, List<String> description) {
 

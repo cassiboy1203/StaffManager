@@ -17,6 +17,9 @@ commands:
       - 'gms'
       - 'gmsp'
       - 'gma'
+  fly:
+    description: Toggle flight
+    permission: staffmanager.staff.fly
 
 permissions:
   staffmanager.staff:
@@ -47,3 +50,13 @@ permissions:
     description: Allows the player to change another players gamemode even while outside staff mode
     children:
       staffmanager.staff.gamemode.other: true
+  staffmanager.fly:
+    description: Allows the player to toggle flight outside of staff mode
+    childern:
+      staffmanager.staff.fly: true
+  staffmanager.staff.fly.other:
+    description: Allows the player to toggle flight of another player in staff mode
+  staffmanager.fly.other:
+    description: Allows the player to toggle flight of another player outside of staff mode
+    childern:
+      staffmanger.staff.fly.other: true
