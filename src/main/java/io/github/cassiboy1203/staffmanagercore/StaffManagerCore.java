@@ -2,7 +2,6 @@ package io.github.cassiboy1203.staffmanagercore;
 
 import com.google.inject.Guice;
 import com.google.inject.Singleton;
-import io.github.cassiboy1203.staffmanagercore.commands.ICommand;
 import io.github.cassiboy1203.staffmanagercore.commands.ICommandRegistar;
 import io.github.cassiboy1203.staffmanagercore.events.listerners.IListener;
 import org.bukkit.plugin.java.JavaPlugin;

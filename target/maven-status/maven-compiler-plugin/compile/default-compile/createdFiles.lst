@@ -10,6 +10,7 @@ io/github/cassiboy1203/staffmanagercore/commands/StaffCommand.class
 io/github/cassiboy1203/staffmanagercore/inventory/StaffItem.class
 io/github/cassiboy1203/staffmanagercore/IStaffMode.class
 io/github/cassiboy1203/staffmanagercore/events/listerners/IListener.class
+io/github/cassiboy1203/staffmanagercore/commands/FlyCommand.class
 io/github/cassiboy1203/staffmanagercore/events/listerners/JoinEventListener.class
 io/github/cassiboy1203/staffmanagercore/commands/ICommand.class
 io/github/cassiboy1203/staffmanagercore/commands/GamemodeCommand.class

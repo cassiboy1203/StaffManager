@@ -5,6 +5,7 @@
 /home/cas/repos/minecraft-plugins/StaffmanagerCore/src/main/java/io/github/cassiboy1203/staffmanagercore/StaffMode.java
 /home/cas/repos/minecraft-plugins/StaffmanagerCore/src/main/java/io/github/cassiboy1203/staffmanagercore/Vanish.java
 /home/cas/repos/minecraft-plugins/StaffmanagerCore/src/main/java/io/github/cassiboy1203/staffmanagercore/commands/CommandRegistar.java
+/home/cas/repos/minecraft-plugins/StaffmanagerCore/src/main/java/io/github/cassiboy1203/staffmanagercore/commands/FlyCommand.java
 /home/cas/repos/minecraft-plugins/StaffmanagerCore/src/main/java/io/github/cassiboy1203/staffmanagercore/commands/GamemodeCommand.java
 /home/cas/repos/minecraft-plugins/StaffmanagerCore/src/main/java/io/github/cassiboy1203/staffmanagercore/commands/ICommand.java
 /home/cas/repos/minecraft-plugins/StaffmanagerCore/src/main/java/io/github/cassiboy1203/staffmanagercore/commands/ICommandRegistar.java

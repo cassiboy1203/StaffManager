@@ -10,9 +10,6 @@ import io.github.cassiboy1203.staffmanagercore.inventory.StaffInventory;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class StaffManagerCoreFactory extends AbstractModule {
 
     private final FileConfiguration config;
@@ -36,6 +33,7 @@ public class StaffManagerCoreFactory extends AbstractModule {
         Multibinder<ICommand> commandBinder = Multibinder.newSetBinder(binder(), ICommand.class);
         commandBinder.addBinding().to(StaffCommand.class);
         commandBinder.addBinding().to(GamemodeCommand.class);
+        commandBinder.addBinding().to(FlyCommand.class);
 
         bind(IListener.class).to(JoinEventListener.class);
     }
