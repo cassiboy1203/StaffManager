@@ -3,6 +3,7 @@ package io.github.cassiboy1203.staffmanagercore;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -45,6 +46,7 @@ public class Vanish implements IVanish{
                         person.hidePlayer(plugin, player);
                 }
             }
+            player.sendMessage(String.format("%sYou are now hidden", ChatColor.YELLOW));
         }
     }
 
@@ -54,6 +56,7 @@ public class Vanish implements IVanish{
         for (var person : Bukkit.getOnlinePlayers()){
             person.showPlayer(plugin, player);
         }
+        player.sendMessage(String.format("%sYou are now shown", ChatColor.YELLOW));
     }
 
     @Override
@@ -66,8 +69,8 @@ public class Vanish implements IVanish{
     }
 
     @Override
-    public List<Player> getVanishedPlayers() {
-        return List.of();
+    public List<UUID> getVanishedPlayers() {
+        return vanishedPlayers;
     }
 
     @Override

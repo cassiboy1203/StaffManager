@@ -11,6 +11,7 @@ public interface IStaffMode {
     String GAMEMODE_PERMISSION = String.join(".", COMMAND_PERMISSION_BASE, "gamemode");
     String GAMEMODE_OTHER_PERMISSION = String.join(".", COMMAND_PERMISSION_BASE, GAMEMODE_PERMISSION,"other");
     String FLY_OTHER_PERMISSION = String.join(".", COMMAND_PERMISSION_BASE, FLY_PERMISSION,"other");
+    String VANISH_TOGGLE_PERMISSION = String.join(".", COMMAND_PERMISSION_BASE, VANISH_PERMISSION, "toggle");
 
     boolean isInStaffMode(Player player);
     void setPlayerInStaffmode(Player player);

@@ -57,8 +57,6 @@ public class StaffCommand implements ICommand{
 
     private boolean leaveStaffMode(Player player) {
         staffMode.removePlayerInStaffmode(player);
-        //TODO: check if player has permission to change gamemode outside staff mode
-//        setGamemode(player);
 
         if (!staffInventory.resetPlayerInventory(player)){
             player.sendMessage("Failed to leave staff mode please try again");
@@ -85,6 +83,9 @@ public class StaffCommand implements ICommand{
             player.setAllowFlight(true);
         if (player.hasPermission(IStaffMode.GODMODE_PERMISSION)){
             player.setInvulnerable(true);
+        }
+        if (player.hasPermission(IStaffMode.VANISH_PERMISSION)){
+            vanish.vanish(player);
         }
         player.sendMessage("Entering staff mode");
         return true;
