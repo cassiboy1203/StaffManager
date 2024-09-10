@@ -34,6 +34,7 @@ public class StaffManagerCoreFactory extends AbstractModule {
         commandBinder.addBinding().to(StaffCommand.class);
         commandBinder.addBinding().to(GamemodeCommand.class);
         commandBinder.addBinding().to(FlyCommand.class);
+        commandBinder.addBinding().to(VanishCommand.class);
 
         bind(IListener.class).to(JoinEventListener.class);
     }

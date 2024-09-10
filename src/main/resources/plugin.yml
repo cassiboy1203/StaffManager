@@ -20,6 +20,9 @@ commands:
   fly:
     description: Toggle flight
     permission: staffmanager.staff.fly
+  vanish:
+    desctiption: Toggles vanish
+    permission: staffmanager.staff.vanish.toggle
 
 permissions:
   staffmanager.staff:
@@ -60,3 +63,11 @@ permissions:
     description: Allows the player to toggle flight of another player outside of staff mode
     childern:
       staffmanger.staff.fly.other: true
+  staffmanager.staff.vanish.toggle:
+    description: Allows the player to toggle vanish inside staff mode.
+    childern:
+      staffmanager.staff.vanish: true
+  staffmanager.vanish.toggle:
+    description: Allows the player to toggle banish outside of staff mode.
+    childern:
+      staffmanager.staff.vanish.toggle: true
