@@ -1,0 +1,13 @@
+database:
+  # YAML
+  type: YAML
+  # Access level is READ or READ_WRITE
+  access: READ_WRITE
+  sql:
+      name:
+      group:
+      username:
+      password:
+      hostname:
+      port:
+

@@ -1,0 +1,12 @@
+groups:
+  - Default:
+      default: true
+      permissions:
+        - ''
+      inheritance: []
+  - Admin:
+      default: false
+      permissions:
+        - "*"
+      inheritance:
+        - default

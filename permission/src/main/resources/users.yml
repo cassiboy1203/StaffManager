@@ -1,0 +1,7 @@
+users:
+  cassiBoy1203:
+    uuid:
+    group: Admin
+    subgroups: []
+    permissions:
+      - '*'
