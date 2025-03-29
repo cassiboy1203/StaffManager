@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.cassiboy1203</groupId>
-    <artifactId>StaffManagerCore</artifactId>
+    <artifactId>StaffManagerLib</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>StaffManagerCore</name>
+    <name>StaffManagerLib</name>
 
     <properties>
         <java.version>21</java.version>
@@ -39,7 +39,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputFile>/home/cas/minecraft-servers/plugin-test/plugins/StaffManagerCore.jar</outputFile>
+                            <outputFile>/home/cas/minecraft-servers/plugin-test/plugins/StaffManagerLib.jar</outputFile>
                         </configuration>
                     </execution>
                 </executions>
@@ -55,12 +55,12 @@
 
     <repositories>
         <repository>
-            <id>spigot-repo</id>
+            <id>spigotmc-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <repository>
-            <id>local-maven-repo</id>
-            <url>file:///${project.basedir}/local-maven-repo</url>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
     </repositories>
 
@@ -69,12 +69,6 @@
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>1.21.1-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.github.cassiboy1203</groupId>
-            <artifactId>StaffManagerLib</artifactId>
-            <version>1.0.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

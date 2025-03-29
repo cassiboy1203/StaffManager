@@ -1,6 +1,8 @@
 package io.github.cassiboy1203.staffmanagercore.commands;
 
-import com.google.inject.Inject;
+import io.github.cassiboy1203.staffManagerLib.annotations.Inject;
+import io.github.cassiboy1203.staffManagerLib.annotations.command.Alias;
+import io.github.cassiboy1203.staffManagerLib.annotations.command.MCCommand;
 import io.github.cassiboy1203.staffmanagercore.IStaffMode;
 import io.github.cassiboy1203.staffmanagercore.StaffManagerCore;
 import org.bukkit.Bukkit;
@@ -10,137 +12,171 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class GamemodeCommand implements ICommand{
+@MCCommand("gamemode")
+public class GamemodeCommand{
 
     private static final String GAMEMODE_PERMISSION = String.join(".", StaffManagerCore.PERMISSION_BASE, "gamemode");
     private static final String GAMEMODE_OTHER_PERMISSION = String.join(".", StaffManagerCore.PERMISSION_BASE, GAMEMODE_PERMISSION, "other");
 
-    private IStaffMode staffMode;
+    private final IStaffMode staffMode;
 
     @Inject
-    public void setStaffMode(IStaffMode staffMode) {
+    public GamemodeCommand(IStaffMode staffMode) {
         this.staffMode = staffMode;
     }
 
-    @Override
-    public String getCommandName() {
-        return "gamemode";
-    }
-
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+    @Alias
+    public boolean onCommand(CommandSender sender, Command command, String[] args) {
         if (sender instanceof Player player) {
-            if (!player.hasPermission(IStaffMode.GAMEMODE_PERMISSION)){
-                return false;
-            } else if (!staffMode.isInStaffMode(player) && !player.hasPermission(GAMEMODE_PERMISSION)){
-                player.sendMessage(String.format("%sYou dont have the permission to change gamemode outside of staff mode.", ChatColor.RED));
-                return true;
-            }
 
-            if (args.length > 0 && args.length < 3){
-                if (!player.hasPermission(IStaffMode.GAMEMODE_OTHER_PERMISSION)){
-                    player.sendMessage(String.format("%sYou dont have the permission to change another players gamemode.", ChatColor.RED));
-                    return true;
-                } else if (!staffMode.isInStaffMode(player) && !player.hasPermission(GAMEMODE_OTHER_PERMISSION)){
-                    player.sendMessage(String.format("%sYou dont have the permission to change another players gamemode outside of staff mode.", ChatColor.RED));
+            if (!hasPermission(player, args.length > 1))
+                return true;
+
+            if (args.length == 0) {
+                player.sendMessage(String.format("%sToo few arguments.", ChatColor.RED));
+                player.sendMessage(String.format("%sUsage: /gamemode <gamemode> [player].", ChatColor.RED));
+            } else if (args.length == 1) {
+                changeGamemode(player, args[0]);
+            } else {
+                var otherPlayer = Bukkit.getPlayer(args[1]);
+                if (otherPlayer == null) {
+                    player.sendMessage(String.format("%sPlayer %s not found.", ChatColor.RED, args[1]));
                     return true;
                 }
-            } else if (args.length > 2){
-                player.sendMessage(String.format("%sToo many arguments.", ChatColor.RED));
-                player.sendMessage(String.format("%sUsage: /gamemode <gamemode> [player].", ChatColor.RED));
+                changeGamemode(otherPlayer, args[0]);
+                player.sendMessage(String.format("%sPlayer %s gamemode has been changed to %s", ChatColor.YELLOW, args[1], args[0]));
                 return true;
-            }
-
-            switch (s){
-                case "gmc":
-                    if (args.length == 0) {
-                        changeGamemode(player, "c");
-                    } else if (args.length == 1) {
-                        var otherPlayer = Bukkit.getPlayer(args[0]);
-                        if (otherPlayer == null) {
-                            player.sendMessage(String.format("%sPlayer %s not found.", ChatColor.RED, args[1]));
-                            return true;
-                        }
-                        changeGamemode(otherPlayer, "c");
-                        player.sendMessage(String.format("%sPlayer %s gamemode has been changed to creative.", ChatColor.YELLOW, args[0]));
-                    } else {
-                        player.sendMessage(String.format("%sToo many arguments.", ChatColor.RED));
-                        player.sendMessage(String.format("%sUsage: /gmc [player].", ChatColor.RED));
-                        return true;
-                    }
-                    break;
-                case "gms":
-                    if (args.length == 0) {
-                        changeGamemode(player, "s");
-                    } else if (args.length == 1) {
-                        var otherPlayer = Bukkit.getPlayer(args[0]);
-                        if (otherPlayer == null) {
-                            player.sendMessage(String.format("%sPlayer %s not found.", ChatColor.RED, args[1]));
-                            return true;
-                        }
-                        changeGamemode(otherPlayer, "s");
-                        player.sendMessage(String.format("%sPlayer %s gamemode has been changed to survival.", ChatColor.YELLOW, args[0]));
-                    } else {
-                        player.sendMessage(String.format("%sToo many arguments.", ChatColor.RED));
-                        player.sendMessage(String.format("%sUsage: /gms [player].", ChatColor.RED));
-                        return true;
-                    }
-                    break;
-                case "gmsp":
-                    if (args.length == 0) {
-                        changeGamemode(player, "sp");
-                    } else if (args.length == 1) {
-                        var otherPlayer = Bukkit.getPlayer(args[0]);
-                        if (otherPlayer == null) {
-                            player.sendMessage(String.format("%sPlayer %s not found.", ChatColor.RED, args[1]));
-                            return true;
-                        }
-                        changeGamemode(otherPlayer, "sp");
-                        player.sendMessage(String.format("%sPlayer %s gamemode has been changed to spectator.", ChatColor.YELLOW, args[0]));
-                    } else {
-                        player.sendMessage(String.format("%sToo many arguments.", ChatColor.RED));
-                        player.sendMessage(String.format("%sUsage: /gmsp [player].", ChatColor.RED));
-                        return true;
-                    }
-                    break;
-                case "gma":
-                    if (args.length == 0) {
-                        changeGamemode(player, "a");
-                    } else if (args.length == 1) {
-                        var otherPlayer = Bukkit.getPlayer(args[0]);
-                        if (otherPlayer == null) {
-                            player.sendMessage(String.format("%sPlayer %s not found.", ChatColor.RED, args[1]));
-                            return true;
-                        }
-                        changeGamemode(otherPlayer, "a");
-                        player.sendMessage(String.format("%sPlayer %s gamemode has been changed to adventure.", ChatColor.YELLOW, args[0]));
-                    } else {
-                        player.sendMessage(String.format("%sToo many arguments.", ChatColor.RED));
-                        player.sendMessage(String.format("%sUsage: /gma [player].", ChatColor.RED));
-                        return true;
-                    }
-                    break;
-                default:
-                    if (args.length == 0) {
-                        player.sendMessage(String.format("%sToo few arguments.", ChatColor.RED));
-                        player.sendMessage(String.format("%sUsage: /gamemode <gamemode> [player].", ChatColor.RED));
-                    } else if (args.length == 1) {
-                        changeGamemode(player, args[0]);
-                    } else {
-                        var otherPlayer = Bukkit.getPlayer(args[1]);
-                        if (otherPlayer == null) {
-                            player.sendMessage(String.format("%sPlayer %s not found.", ChatColor.RED, args[1]));
-                            return true;
-                        }
-                        changeGamemode(otherPlayer, args[0]);
-                        player.sendMessage(String.format("%sPlayer %s gamemode has been changed to %s", ChatColor.YELLOW, args[1], args[0]));
-                        return true;
-                    }
-                    break;
             }
         }
 
         return false;
+    }
+
+    @Alias("gmc")
+    public boolean onGmc(CommandSender sender, Command command, String[] args){
+        if (sender instanceof Player player) {
+
+            if (!hasPermission(player, args.length > 0))
+                return true;
+
+            if (args.length == 0) {
+                changeGamemode(player, "c");
+            } else if (args.length == 1) {
+                var otherPlayer = Bukkit.getPlayer(args[0]);
+                if (otherPlayer == null) {
+                    player.sendMessage(String.format("%sPlayer %s not found.", ChatColor.RED, args[1]));
+                    return true;
+                }
+                changeGamemode(otherPlayer, "c");
+                player.sendMessage(String.format("%sPlayer %s gamemode has been changed to creative.", ChatColor.YELLOW, args[0]));
+            } else {
+                player.sendMessage(String.format("%sToo many arguments.", ChatColor.RED));
+                player.sendMessage(String.format("%sUsage: /gmc [player].", ChatColor.RED));
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Alias("gms")
+    public boolean onGms(CommandSender sender, Command command, String[] args){
+        if (sender instanceof Player player) {
+
+            if (!hasPermission(player, args.length > 0))
+                return true;
+
+            if (args.length == 0) {
+                changeGamemode(player, "s");
+            } else if (args.length == 1) {
+                var otherPlayer = Bukkit.getPlayer(args[0]);
+                if (otherPlayer == null) {
+                    player.sendMessage(String.format("%sPlayer %s not found.", ChatColor.RED, args[1]));
+                    return true;
+                }
+                changeGamemode(otherPlayer, "s");
+                player.sendMessage(String.format("%sPlayer %s gamemode has been changed to survival.", ChatColor.YELLOW, args[0]));
+            } else {
+                player.sendMessage(String.format("%sToo many arguments.", ChatColor.RED));
+                player.sendMessage(String.format("%sUsage: /gms [player].", ChatColor.RED));
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Alias("gmsp")
+    public boolean onGmsp(CommandSender sender, Command command, String[] args){
+        if (sender instanceof Player player) {
+
+            if (!hasPermission(player, args.length > 0))
+                return true;
+
+            if (args.length == 0) {
+                changeGamemode(player, "sp");
+            } else if (args.length == 1) {
+                var otherPlayer = Bukkit.getPlayer(args[0]);
+                if (otherPlayer == null) {
+                    player.sendMessage(String.format("%sPlayer %s not found.", ChatColor.RED, args[1]));
+                    return true;
+                }
+                changeGamemode(otherPlayer, "sp");
+                player.sendMessage(String.format("%sPlayer %s gamemode has been changed to spectator.", ChatColor.YELLOW, args[0]));
+            } else {
+                player.sendMessage(String.format("%sToo many arguments.", ChatColor.RED));
+                player.sendMessage(String.format("%sUsage: /gmsp [player].", ChatColor.RED));
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    @Alias("gma")
+    public boolean onGma(CommandSender sender, Command command, String[] args){
+        if (sender instanceof Player player) {
+            if (!hasPermission(player, args.length > 0))
+                return true;
+
+            if (args.length == 0) {
+                changeGamemode(player, "a");
+            } else if (args.length == 1) {
+                var otherPlayer = Bukkit.getPlayer(args[0]);
+                if (otherPlayer == null) {
+                    player.sendMessage(String.format("%sPlayer %s not found.", ChatColor.RED, args[1]));
+                    return true;
+                }
+                changeGamemode(otherPlayer, "a");
+                player.sendMessage(String.format("%sPlayer %s gamemode has been changed to adventure.", ChatColor.YELLOW, args[0]));
+            } else {
+                player.sendMessage(String.format("%sToo many arguments.", ChatColor.RED));
+                player.sendMessage(String.format("%sUsage: /gma [player].", ChatColor.RED));
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean hasPermission(Player player, boolean other){
+        if (!player.hasPermission(IStaffMode.GAMEMODE_PERMISSION)){
+            return false;
+        } else if (!staffMode.isInStaffMode(player) && !player.hasPermission(GAMEMODE_PERMISSION)){
+            player.sendMessage(String.format("%sYou dont have the permission to change gamemode outside of staff mode.", ChatColor.RED));
+            return false;
+        }
+
+        if (other){
+            if (!player.hasPermission(IStaffMode.GAMEMODE_OTHER_PERMISSION)){
+                player.sendMessage(String.format("%sYou dont have the permission to change another players gamemode.", ChatColor.RED));
+                return false;
+            } else if (!staffMode.isInStaffMode(player) && !player.hasPermission(GAMEMODE_OTHER_PERMISSION)){
+                player.sendMessage(String.format("%sYou dont have the permission to change another players gamemode outside of staff mode.", ChatColor.RED));
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private void changeGamemode(Player player, String gamemode){

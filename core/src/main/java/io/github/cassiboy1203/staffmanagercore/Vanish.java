@@ -1,7 +1,8 @@
 package io.github.cassiboy1203.staffmanagercore;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import io.github.cassiboy1203.staffManagerLib.annotations.Component;
+import io.github.cassiboy1203.staffManagerLib.annotations.Inject;
+import io.github.cassiboy1203.staffManagerLib.annotations.Singleton;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -12,24 +13,18 @@ import java.util.List;
 import java.util.UUID;
 
 @Singleton
+@Component
 public class Vanish implements IVanish{
 
     private final List<UUID> vanishedPlayers;
-    private IStaffMode staffMode;
-    private JavaPlugin plugin;
-
-    public Vanish(){
-        vanishedPlayers = new ArrayList<>();
-    }
+    private final IStaffMode staffMode;
+    private final JavaPlugin plugin;
 
     @Inject
-    public void setStaffMode(IStaffMode staffMode) {
+    public Vanish(IStaffMode staffMode, JavaPlugin plugin) {
         this.staffMode = staffMode;
-    }
-
-    @Inject
-    public void setPlugin(JavaPlugin plugin) {
         this.plugin = plugin;
+        vanishedPlayers = new ArrayList<>();
     }
 
     @Override

@@ -1,12 +1,15 @@
 package io.github.cassiboy1203.staffmanagercore;
 
-import com.google.inject.Guice;
-import com.google.inject.Singleton;
-import io.github.cassiboy1203.staffmanagercore.commands.ICommandRegistar;
-import io.github.cassiboy1203.staffmanagercore.events.listerners.IListener;
+import io.github.cassiboy1203.staffManagerLib.StaffManagerLib;
+import io.github.cassiboy1203.staffManagerLib.annotations.Plugin;
+import io.github.cassiboy1203.staffManagerLib.annotations.Singleton;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.logging.Level;
+
 @Singleton
+@Plugin
 public final class StaffManagerCore extends JavaPlugin {
 
     public static final String PERMISSION_BASE = "staffmanager";
@@ -17,11 +20,15 @@ public final class StaffManagerCore extends JavaPlugin {
 
         saveDefaultConfig();
 
-        var injector = Guice.createInjector(new StaffManagerCoreFactory(getConfig(),this));
-        var listener = injector.getInstance(IListener.class);
-        getServer().getPluginManager().registerEvents(listener, this);
+        StaffManagerLib staffManagerLib = (StaffManagerLib) Bukkit.getPluginManager().getPlugin("StaffManagerLib");
 
-        injector.getInstance(ICommandRegistar.class).registerCommands();
+        if (staffManagerLib == null) {
+            Bukkit.getLogger().log(Level.SEVERE, "Missing dependency: StaffManagerLib");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
+
+        var injector = staffManagerLib.start(this);
     }
 
     @Override

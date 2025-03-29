@@ -1,6 +1,8 @@
 package io.github.cassiboy1203.staffmanagercore.commands;
 
-import com.google.inject.Inject;
+import io.github.cassiboy1203.staffManagerLib.annotations.Inject;
+import io.github.cassiboy1203.staffManagerLib.annotations.command.Alias;
+import io.github.cassiboy1203.staffManagerLib.annotations.command.MCCommand;
 import io.github.cassiboy1203.staffmanagercore.IStaffMode;
 import io.github.cassiboy1203.staffmanagercore.IVanish;
 import org.bukkit.ChatColor;
@@ -8,29 +10,20 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class VanishCommand implements ICommand{
+@MCCommand("vanish")
+public class VanishCommand{
 
-    private IStaffMode staffMode;
-    private IVanish vanish;
-
+    private final IStaffMode staffMode;
+    private final IVanish vanish;
 
     @Inject
-    private void setStaffMode(IStaffMode staffMode) {
+    public VanishCommand(IStaffMode staffMode, IVanish vanish) {
         this.staffMode = staffMode;
-    }
-
-    @Inject
-    private void setVanish(IVanish vanish) {
         this.vanish = vanish;
     }
 
-    @Override
-    public String getCommandName() {
-        return "vanish";
-    }
-
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+    @Alias("v")
+    public boolean onCommand(CommandSender sender, Command command, String[] args) {
         if (sender instanceof Player player) {
             if (!player.hasPermission(IStaffMode.VANISH_TOGGLE_PERMISSION)) {
                 return false;

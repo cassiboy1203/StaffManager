@@ -1,0 +1,4 @@
+name: StaffManagerLib
+version: '1.0.0'
+main: io.github.cassiboy1203.staffManagerLib.StaffManagerLib
+api-version: '1.21'

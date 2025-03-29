@@ -1,6 +1,7 @@
 package io.github.cassiboy1203.staffmanagercore;
 
-import com.google.inject.Singleton;
+import io.github.cassiboy1203.staffManagerLib.annotations.Component;
+import io.github.cassiboy1203.staffManagerLib.annotations.Singleton;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Singleton
+@Component
 public class StaffMode implements IStaffMode{
     private final List<UUID> playersInStaffMode;
 

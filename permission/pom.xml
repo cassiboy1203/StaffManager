@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.cassiboy1203</groupId>
-    <artifactId>staffmanagerpermissions</artifactId>
+    <artifactId>StaffManagerPermissions</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>staffmanagerpermissions</name>
+    <name>StaffManagerPermissions</name>
 
     <properties>
         <java.version>21</java.version>
@@ -72,10 +72,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.google.inject</groupId>
-            <artifactId>guice</artifactId>
-            <!-- {version} can be 6.0.0, 7.0.0, etc. -->
-            <version>7.0.0</version>
+            <groupId>io.github.cassiboy1203</groupId>
+            <artifactId>StaffManagerLib</artifactId>
+            <version>1.0.0</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

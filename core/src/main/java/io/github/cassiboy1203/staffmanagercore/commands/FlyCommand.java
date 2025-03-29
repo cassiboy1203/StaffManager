@@ -1,6 +1,8 @@
 package io.github.cassiboy1203.staffmanagercore.commands;
 
-import com.google.inject.Inject;
+import io.github.cassiboy1203.staffManagerLib.annotations.Inject;
+import io.github.cassiboy1203.staffManagerLib.annotations.command.Alias;
+import io.github.cassiboy1203.staffManagerLib.annotations.command.MCCommand;
 import io.github.cassiboy1203.staffmanagercore.IStaffMode;
 import io.github.cassiboy1203.staffmanagercore.StaffManagerCore;
 import org.bukkit.Bukkit;
@@ -9,25 +11,21 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class FlyCommand implements ICommand{
+@MCCommand("fly")
+public class FlyCommand{
 
     private static final String FLY_PERMISSION = String.join(".", StaffManagerCore.PERMISSION_BASE, "fly");
     private static final String FLY_OTHER_PERMISSION = String.join(".", StaffManagerCore.PERMISSION_BASE, FLY_PERMISSION, "other");
 
-    private IStaffMode staffMode;
+    private final IStaffMode staffMode;
 
     @Inject
-    public void setStaffMode(IStaffMode staffMode) {
+    public FlyCommand(IStaffMode staffMode) {
         this.staffMode = staffMode;
     }
 
-    @Override
-    public String getCommandName() {
-        return "fly";
-    }
-
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+    @Alias
+    public boolean onCommand(CommandSender sender, Command command, String[] args) {
         if (sender instanceof Player player) {
             if (!player.hasPermission(IStaffMode.FLY_PERMISSION)){
                 return false;

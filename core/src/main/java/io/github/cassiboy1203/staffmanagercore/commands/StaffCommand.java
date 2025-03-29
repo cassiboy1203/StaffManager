@@ -1,6 +1,8 @@
 package io.github.cassiboy1203.staffmanagercore.commands;
 
-import com.google.inject.Inject;
+import io.github.cassiboy1203.staffManagerLib.annotations.Inject;
+import io.github.cassiboy1203.staffManagerLib.annotations.command.Alias;
+import io.github.cassiboy1203.staffManagerLib.annotations.command.MCCommand;
 import io.github.cassiboy1203.staffmanagercore.IStaffMode;
 import io.github.cassiboy1203.staffmanagercore.IVanish;
 import io.github.cassiboy1203.staffmanagercore.inventory.IStaffInventory;
@@ -9,36 +11,26 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
-public class StaffCommand implements ICommand{
+@MCCommand("staff")
+public class StaffCommand{
 
-    private IStaffMode staffMode;
-    private FileConfiguration config;
-    private IStaffInventory staffInventory;
-    private IVanish vanish;
+    private final IStaffMode staffMode;
+    private final FileConfiguration config;
+    private final IStaffInventory staffInventory;
+    private final IVanish vanish;
 
     @Inject
-    public void setStaffMode(IStaffMode staffMode) {
+    public StaffCommand(IStaffMode staffMode, IStaffInventory staffInventory, IVanish vanish, JavaPlugin plugin) {
         this.staffMode = staffMode;
-    }
-
-    @Inject
-    public void setConfig(FileConfiguration config) {
-        this.config = config;
-    }
-
-    @Inject
-    public void setStaffInventory(IStaffInventory staffInventory) {
+        this.config = plugin.getConfig();
         this.staffInventory = staffInventory;
-    }
-
-    @Inject
-    public void setVanish(IVanish vanish) {
         this.vanish = vanish;
     }
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
+    @Alias
+    public boolean onCommand(CommandSender sender, Command command, String[] strings) {
 
         if (sender instanceof Player player) {
             if (staffMode.isInStaffMode(player)) {
@@ -105,10 +97,5 @@ public class StaffCommand implements ICommand{
             default:
                 player.setGameMode(GameMode.SURVIVAL);
         }
-    }
-
-    @Override
-    public String getCommandName() {
-        return "staff";
     }
 }

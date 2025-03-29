@@ -1,7 +1,7 @@
 package io.github.cassiboy1203.staffManagerPermissions;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import io.github.cassiboy1203.staffManagerLib.annotations.Inject;
+import io.github.cassiboy1203.staffManagerLib.annotations.Singleton;
 import io.github.cassiboy1203.staffManagerPermissions.configs.IGroupConfig;
 import io.github.cassiboy1203.staffManagerPermissions.exceptions.GroupException;
 import io.github.cassiboy1203.staffManagerPermissions.exceptions.GroupNotFoundException;

@@ -1,13 +1,15 @@
 package io.github.cassiboy1203.staffmanagercore.inventory;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import io.github.cassiboy1203.staffManagerLib.annotations.Component;
+import io.github.cassiboy1203.staffManagerLib.annotations.Inject;
+import io.github.cassiboy1203.staffManagerLib.annotations.Singleton;
 import io.github.cassiboy1203.staffmanagercore.StaffManagerCore;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,19 +19,17 @@ import java.util.Objects;
 import java.util.logging.Level;
 
 @Singleton
+@Component
 public class StaffInventory implements IStaffInventory {
 
     private FileConfiguration staffInventories;
     private File file;
-    private FileConfiguration config;
-
-    public StaffInventory() {
-        setup();
-    }
+    private final FileConfiguration config;
 
     @Inject
-    public void setConfig(FileConfiguration config) {
-        this.config = config;
+    public StaffInventory(JavaPlugin plugin) {
+        this.config = plugin.getConfig();
+        setup();
     }
 
     private void setup(){
